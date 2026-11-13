@@ -6,10 +6,11 @@ Web API para cadastrar, consultar, atualizar e excluir os materiais do acervo de
 
 ## Integrantes
 
-1. _Nome do integrante 1_
-2. _Nome do integrante 2_
-3. _Nome do integrante 3_
-4. _Nome do integrante 4_
+1. Marcos Portales Cruz RGM: 114.017
+2. Gabriel Andrade RGM: 114.073
+3. Guilherme Graces RGM: 114.072
+4. Enzo Musskopf Lupinetti RGM: 114.019
+5. Kaemy dos Reis Moreira RGM: 114.032
 
 ## Descrição do sistema
 
