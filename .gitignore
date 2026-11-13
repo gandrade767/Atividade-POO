@@ -1,0 +1,9 @@
+# Arquivos gerados pelo build do .NET
+bin/
+obj/
+
+# Configurações locais do Visual Studio / VS Code
+.vs/
+.vscode/
+*.user
+*.suo
