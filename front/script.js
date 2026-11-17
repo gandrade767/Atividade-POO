@@ -249,6 +249,7 @@ function atualizarCampos() {
     } else {
         camposLivro.classList.add("d-none");
         camposRevista.classList.remove("d-none");
+        limparErro(campoAutor);
         limparErro(campoPaginas);
     }
 }
@@ -290,6 +291,11 @@ function validarFormularioMaterial() {
     ) && valido;
 
     if (campoTipo.value === "livro") {
+        valido = definirErro(
+            campoAutor,
+            campoAutor.value.trim() ? "" : "O autor é obrigatório."
+        ) && valido;
+
         const paginas = Number(campoPaginas.value);
         valido = definirErro(
             campoPaginas,
@@ -318,7 +324,7 @@ function validarFormularioMaterial() {
     return valido;
 }
 
-[campoTitulo, campoAno, campoPaginas, campoEdicao, campoMes].forEach(function (campo) {
+[campoTitulo, campoAno, campoAutor, campoPaginas, campoEdicao, campoMes].forEach(function (campo) {
     campo.addEventListener("input", function () {
         limparErro(campo);
     });
