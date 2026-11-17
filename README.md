@@ -2,7 +2,7 @@
 
 Web API para cadastrar, consultar, atualizar e excluir os materiais do acervo de uma biblioteca universitária (livros e revistas), desenvolvida na disciplina de **Programação Orientada a Objetos**.
 
-> Este README trata **somente do backend** (a Web API).
+> Este README documenta o backend (Web API) e registra a validação responsiva da interface web em `front/`.
 
 ## Integrantes
 
@@ -11,6 +11,10 @@ Web API para cadastrar, consultar, atualizar e excluir os materiais do acervo de
 3. Guilherme Graces RGM: 114.072
 4. Enzo Musskopf Lupinetti RGM: 114.019
 5. Kaemy dos Reis Moreira RGM: 114.032
+
+## Repositório no GitHub
+
+**Repositório público:** [github.com/gandrade767/Atividade-POO](https://github.com/gandrade767/Atividade-POO).
 
 ## Descrição do sistema
 
@@ -40,6 +44,58 @@ Os dados ficam **apenas em memória**. Ao reiniciar a aplicação, voltam a exis
 - C#
 - ASP.NET Core Web API (.NET 10)
 - Swagger (Swashbuckle.AspNetCore)
+
+## Interface web e responsividade
+
+A interface está na pasta `front/`. A responsividade foi verificada visualmente no Microsoft Edge (Chromium), com a API em execução, nestas larguras de viewport:
+
+| Tamanho | Viewport | Resultado |
+|---|---:|---|
+| Pequeno | 390 × 2400 | Formulário e lista empilhados; tabela rola horizontalmente dentro do próprio contêiner. |
+| Médio | 768 × 1600 | Formulário e lista empilhados para evitar colunas apertadas; tabela mantém rolagem horizontal contida. |
+| Grande | 1440 × 1000 | Formulário e lista lado a lado; colunas e ações da tabela visíveis. |
+
+### Como executar o frontend
+
+1. Inicie a API na raiz do projeto:
+
+   ```bash
+   dotnet run
+   ```
+
+2. Em outro terminal, sirva os arquivos estáticos do frontend:
+
+   ```bash
+   python -m http.server 5500 --directory front
+   ```
+
+   Também é possível abrir `front/index.html` com a extensão Live Server do VS Code.
+
+3. Acesse `http://localhost:5500`.
+
+O frontend usa Bootstrap **5.3.3** pelo CDN e o tema próprio de `front/styles.css`; por isso, é necessária conexão à internet para carregar o Bootstrap. A API fica configurada em `http://localhost:5236/api/Materiais`, e o endpoint da documentação é `http://localhost:5236/swagger`.
+
+### Validação e testes do frontend
+
+O formulário impede o envio quando o título está vazio, o ano é negativo, páginas ou edição não são maiores que zero, ou o mês está fora do intervalo de 1 a 12. Os campos inválidos recebem `is-invalid` e uma mensagem. A API também valida os dados no servidor.
+
+Roteiro para conferir as operações pela interface:
+
+| Ação | Resultado esperado |
+|---|---|
+| Enviar livro sem título ou sem páginas válidas | O envio é bloqueado e o campo inválido é destacado. |
+| Cadastrar livro ou revista válidos | A mensagem de sucesso aparece e a tabela e os contadores são atualizados. |
+| Buscar um ID existente/inexistente | Os dados abrem no modal / a mensagem de erro da API aparece. |
+| Editar e cancelar | Salvar envia `PUT`; cancelar limpa o estado de edição. |
+| Emprestar livro/revista/ID inexistente | Sucesso para livro; mensagens de erro da API para revista ou ID inexistente. |
+
+As verificações visuais responsivas estão registradas na tabela acima; `node --check front/script.js` também foi executado sem erros.
+
+### Dificuldades e aprendizados
+
+Na integração entre a página e a API, foi necessário tratar respostas JSON e respostas de texto, além de manter mensagens de erro visíveis sem perder o detalhe no console. A validação no navegador foi alinhada às regras do servidor, e a tabela usa criação de elementos e `textContent` para exibir valores recebidos da API. Os testes em diferentes larguras ajudaram a ajustar os pontos de quebra e a rolagem horizontal da tabela.
+
+O projeto reúne prática de herança, classes abstratas, polimorfismo e interfaces no backend, além de consumo de API REST, manipulação do DOM, validação de formulário e layout responsivo no frontend.
 
 ## Estrutura do backend
 
@@ -177,4 +233,4 @@ Testes realizados:
 | 17 | POST empréstimo de livro | `200 OK` |
 | 18 | POST empréstimo de revista | `400 Bad Request` |
 | 19 | Cadastrar vários materiais | IDs diferentes |
-| 20 | Excluir e cadastrar outro material | ID novo não se repete |
+| 20 | Excluir e cadastrar outro material | O menor ID disponível é reutilizado |

@@ -5,7 +5,6 @@ namespace BibliotecaApi.Models
         public int Id { get; set; }
         public string? Titulo { get; set; }
         public int AnoPublicacao { get; set; }
-        public string? Resumo { get; set; }
 
         public abstract int CalcularPrazo();
 

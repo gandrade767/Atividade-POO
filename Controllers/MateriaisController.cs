@@ -192,7 +192,6 @@ namespace BibliotecaApi.Controllers
                     livro.Titulo,
                     livro.AnoPublicacao,
                     livro.Autor,
-                    livro.Resumo,
                     livro.Paginas
                 };
             }
@@ -206,7 +205,6 @@ namespace BibliotecaApi.Controllers
                     revista.Titulo,
                     revista.AnoPublicacao,
                     revista.Edicao,
-                    revista.Resumo,
                     revista.MesPublicacao
                 };
             }

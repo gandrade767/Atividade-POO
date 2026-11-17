@@ -7,8 +7,6 @@ namespace BibliotecaApi.Repositories
     {
         private readonly Dictionary<int, MaterialBiblioteca> _materiais = new();
 
-        private int _proximoId = 1;
-
         public MaterialRepository()
         {
             Adicionar(new Livro
@@ -30,7 +28,12 @@ namespace BibliotecaApi.Repositories
 
         private int GerarNovoId()
         {
-            return _proximoId++;
+            var id = 1;
+
+            while (_materiais.ContainsKey(id))
+                id++;
+
+            return id;
         }
 
         public IEnumerable<MaterialBiblioteca> ObterTodos()
